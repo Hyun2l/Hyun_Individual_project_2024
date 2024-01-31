@@ -1,0 +1,86 @@
+name: Build Documentation
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      publish:
+        required: true
+        type: boolean
+  release:
+    types: [ released ]
+
+
+jobs:
+  build_docs:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Cache pip
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: pip-cache-${{ hashFiles('requirements/*/*.txt') }}
+          restore-keys: |
+            pip-cache
+
+      - name: Install python requirements
+        run: |
+          python3 -m pip install --upgrade pip setuptools wheel
+          python3 -m pip install -r requirements-dev.txt
+
+      - name: Create cache directory
+        run: |
+          mkdir doc_cache  # make sure cache dir exists
+
+      - name: Cache FastF1
+        uses: actions/cache@v3
+        with:
+          path: ./doc_cache
+          key: fastf1-doc-cache-${{ hashFiles('*.*') }}
+          restore-keys: |
+            fastf1-doc-cache
+
+      - name: Install Fast-F1 from sources
+        run: |
+          python3 -m pip install -e .
+
+      - name: Create doc build dir
+        run: |
+          mkdir -p docs/_build/html
+
+      - name: Checkout current docs
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: docs/_build/html
+
+      - name: Build docs
+        run: |
+          mkdir test_cache  # not really need but pytest setup relies on it 
+          sphinx-build ./docs ./docs/_build/html -a -E -W -n --keep-going
+
+      - name: Publish docs
+        if: (github.event_name == 'release') || inputs.publish
+        run: |
+          cd docs/_build/html
+          git add .
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit -m "$GITHUB_REF_NAME ($GITHUB_JOB) ci release"
+          git push origin gh-pages --force
+
+      - name: Upload docs as artifact
+        uses: actions/upload-artifact@v3
+        if: github.event_name != 'release'
+        with:
+          name: Documentation Build
+          path: docs/_build/html
