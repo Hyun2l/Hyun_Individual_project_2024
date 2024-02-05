@@ -42,5 +42,5 @@ def save_to_csv(data, filename):
     data.to_csv(filename, index=False)
 
 # Example usage
-season_data = get_race_data_for_season(2019)
-save_to_csv(season_data, '2019_f1_season_data.csv')
+season_data = get_race_data_for_season(2021)
+save_to_csv(season_data, '2021_f1_season_data.csv')
