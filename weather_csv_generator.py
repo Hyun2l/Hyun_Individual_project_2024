@@ -31,7 +31,7 @@ def save_weather_data_for_season(year):
     combined_weather_data = pd.concat(all_weather_data, ignore_index=True)
 
     # Save to CSV
-    combined_weather_data.to_csv(f'f1_{year}_season_weather_data.csv', index=False)
+    combined_weather_data.to_csv(f'f1_{year}_weather_data.csv', index=False)
 
 # Swap the years
-save_weather_data_for_season(2021)
+save_weather_data_for_season(2019)
