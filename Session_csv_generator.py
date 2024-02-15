@@ -18,8 +18,19 @@ def save_race_data_for_season(year):
             laps_df = laps[['DriverNumber', 'LapNumber', 'LapTime', 'TrackStatus', 'Driver', 'Compound', 'TyreLife', 'IsAccurate']]
             laps_df['RaceName'] = race_name
 
+
+
             laps_df['SessionStart'] = session.session_start_time
             laps_df['T0Date'] = session.t0_date
+
+
+            laps_df['Session_info'] = session.session_info
+            laps_df['Session_Status'] = session.session_status
+            laps_df['Track_Status'] = session.track_status
+            laps_df['Car_data'] = session.car_data
+            laps_df['laps'] = session.laps
+            laps_df['Total_laps'] = session.total_laps
+
 
             all_races_data.append(laps_df)
         except Exception as e:
