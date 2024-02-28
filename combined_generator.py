@@ -20,12 +20,15 @@ def save_lap_and_telemetry_data_for_season(year):
         for lap in session.laps.iterlaps():
             lap_data = lap[1].to_dict()
             weather_data = lap[1].get_weather_data().to_dict()
+            #telemetry_data = lap[1].get_telemetry()
 
 
+            lap_data['Circuit_Name'] = race_name  # Adding circuit name
             lap_data['Circuit_Corners'] = len(circuit_info.corners)  #  Adding number of corners
             lap_data['Circuit_Rotation'] = circuit_info.rotation  #  Adding circuit rotation
             #lap_data['Marshal_lights'] =circuit_info.marshal_lights
             #lap_data['Marshal_sectors'] = circuit_info.marshal_sectors
+            #telemetry_data['Speed'] = telemetry_data['Speed']
 
             # Update lap data with weather and telemetry
             lap_data.update(weather_data)

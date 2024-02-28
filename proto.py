@@ -21,6 +21,10 @@ def save_lap_weather_data_for_season(year):
 
                 all_laps_with_weather.append(lap_data)  # 결과를 리스트에 추가
 
+
+
+
+
         except Exception as e:
             print(f"Error processing data for {race_name}: {e}")
 
