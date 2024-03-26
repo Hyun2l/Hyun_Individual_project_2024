@@ -11,7 +11,7 @@ def save_lap_and_telemetry_data_for_season(year):
 
     for _, event in race_events.iterrows():
         race_name = event['EventName']
-        session = get_session(year, race_name, 'R') # Race only
+        session = get_session(year, race_name, 'Q') # Race only
         session.load(telemetry=True,laps=True,messages=True)
 
         # Get circuit information
