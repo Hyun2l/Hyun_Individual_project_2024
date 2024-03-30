@@ -122,13 +122,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/f1_2014_to_2022_HAM_all_data.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="/f1db_csv/circuits.csv">
           <value>
             <Attribute>
