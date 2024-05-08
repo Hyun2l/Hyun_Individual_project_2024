@@ -38,4 +38,6 @@ def save_all_laps_and_telemetry_data_for_all_drivers_and_years(start_year, end_y
     all_years_laps_df.to_csv(f"f1_{start_year}_to_{end_year}_all_drivers_all_data.csv", index=False)
 
 # Example usage: Save all lap and telemetry data for all drivers from 2014 to 2022 into one file
-save_all_laps_and_telemetry_data_for_all_drivers_and_years(2019, 2022)
+save_all_laps_and_telemetry_data_for_all_drivers_and_years(2019, 2019)
+
+#%%
