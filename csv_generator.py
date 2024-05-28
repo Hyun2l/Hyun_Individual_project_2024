@@ -2,7 +2,7 @@ from fastf1 import get_session, get_event_schedule
 import pandas as pd
 
 def save_all_laps_and_telemetry_data_for_all_drivers_and_years(start_year, end_year):
-    all_years_data = []  # Initialize a list to hold data from all years
+    all_years_data = []  # a list to hold data from all years
 
     for year in range(start_year, end_year + 1):
         schedule = get_event_schedule(year)
@@ -31,13 +31,13 @@ def save_all_laps_and_telemetry_data_for_all_drivers_and_years(start_year, end_y
             except Exception as e:
                 print(f"Error processing {race_name} in {year}: {e}")
 
-    # Create a DataFrame from the list of lap data dictionaries for all selected years
+    # Create a DataFrame
     all_years_laps_df = pd.DataFrame(all_years_data)
 
-    # Save the DataFrame to a CSV file that includes data for all drivers over the selected years
+    # Save the DataFrame to a CSV file
     all_years_laps_df.to_csv(f"f1_{start_year}_to_{end_year}_all_drivers_all_data.csv", index=False)
 
-# Example usage: Save all lap and telemetry data for all drivers from 2014 to 2022 into one file
+
 save_all_laps_and_telemetry_data_for_all_drivers_and_years(2019, 2019)
 
 #%%
